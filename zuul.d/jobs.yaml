@@ -19,7 +19,7 @@
         label: ubuntu-jammy
 
 - nodeset:
-    name: external-node
+    name: external-nodeset
     nodes:
       - name: 172.17.225.44
         label: external-node
