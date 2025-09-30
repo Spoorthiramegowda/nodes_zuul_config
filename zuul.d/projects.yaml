@@ -1,0 +1,37 @@
+---
+- project:
+    name: ^.*$
+    default-branch: main
+    gh_check:
+      jobs: []
+    gh_gate:
+      jobs: []
+    gh_post:
+      jobs: []
+    gh_tag:
+      jobs: []
+    nightly:
+      jobs: []
+
+- project:
+    name: zuul/zuul-jobs
+    default-branch: master
+
+- project:
+    name: Minson2951/zuul_config
+    default-branch: main
+    gh_check:
+      jobs:
+        - noop
+    gh_gate:
+      jobs:
+        - noop
+    gh_post:
+      jobs:
+        - noop
+    gh_tag:
+      jobs:
+        - noop
+    nightly:
+      jobs:
+        - noop
