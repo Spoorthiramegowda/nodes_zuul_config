@@ -3,7 +3,7 @@
     name: base
     parent: null
     description: |
-      The recommended base job.
+      The recommended base job with SSH key management.
     pre-run: playbooks/base/pre.yaml
     post-run:
       - playbooks/base/post-ssh.yaml
@@ -12,22 +12,18 @@
       - zuul: zuul/zuul-jobs
     timeout: 1800
 
-- nodeset:
-    name: ubuntu-nodeset
-    nodes:
-      - name: node-main
-        label: ubuntu-jammy
+- job:
+    name: base-static
+    parent: null
+    description: |
+      Base job for static nodes without SSH key management.
+    pre-run: playbooks/base/pre-static.yaml
+    post-run:
+      - playbooks/base/post-logs.yaml
+    timeout: 1800
 
 - nodeset:
     name: external-nodeset
     nodes:
       - name: 172.17.225.44
-        label: external-node
-
-- nodeset:
-    name: multi-nodeset
-    nodes:
-      - name: node-main
-        label: ubuntu-jammy
-      - name: node-external
         label: external-node
