@@ -1,0 +1,27 @@
+---
+- hosts: all
+  tasks:
+    - name: Create zuul workspace
+      file:
+        path: "{{ zuul.project.src_dir }}"
+        state: directory
+        mode: 0755
+
+    - name: Ensure workspace is writable
+      file:
+        path: "{{ zuul.project.src_dir }}"
+        owner: "{{ zuul.executor.user }}"
+        group: "{{ zuul.executor.user }}"
+        recurse: yes
+
+    - name: Set workspace permissions
+      file:
+        path: "{{ zuul.project.src_dir }}"
+        mode: 0755
+
+    - name: Display workspace info
+      debug:
+        msg: |
+          Workspace: {{ zuul.project.src_dir }}
+          Executor user: {{ zuul.executor.user }}
+          Node: {{ inventory_hostname }}
