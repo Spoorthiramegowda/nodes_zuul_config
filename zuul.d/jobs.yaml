@@ -15,19 +15,19 @@
 - nodeset:
     name: ubuntu-nodeset
     nodes:
-      - name: ubuntu-jammy
+      - name: node-main
         label: ubuntu-jammy
 
 - nodeset:
     name: external-nodeset
     nodes:
-      - name: 172.17.225.44
+      - name: node-external
         label: external-node
 
 - nodeset:
     name: multi-nodeset
     nodes:
-      - name: ubuntu-jammy
+      - name: node-main
         label: ubuntu-jammy
-      - name: external-node
+      - name: node-external
         label: external-node
