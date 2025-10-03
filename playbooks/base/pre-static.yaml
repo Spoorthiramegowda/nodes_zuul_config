@@ -1,6 +1,23 @@
 ---
 - hosts: all
+  gather_facts: false
   tasks:
+    - name: Force Ansible to use correct SSH key
+      set_fact:
+        ansible_ssh_private_key_file: "{{ lookup('env', 'ANSIBLE_PRIVATE_KEY_FILE') | default('/var/ssh/nodepool') }}"
+        ansible_user: minson
+        ansible_ssh_common_args: "{{ lookup('env', 'ANSIBLE_SSH_COMMON_ARGS') | default('-o StrictHostKeyChecking=no') }}"
+
+    - name: Display SSH configuration
+      debug:
+        msg: |
+          Using SSH key: {{ ansible_ssh_private_key_file }}
+          SSH user: {{ ansible_user }}
+          SSH args: {{ ansible_ssh_common_args }}
+
+    - name: Test SSH connection
+      ping:
+
     - name: Create zuul workspace
       file:
         path: "{{ zuul.project.src_dir }}"
@@ -10,18 +27,13 @@
     - name: Ensure workspace is writable
       file:
         path: "{{ zuul.project.src_dir }}"
-        owner: "{{ zuul.executor.user }}"
-        group: "{{ zuul.executor.user }}"
+        owner: "{{ zuul.executor.user | default('root') }}"
+        group: "{{ zuul.executor.user | default('root') }}"
         recurse: yes
 
-    - name: Set workspace permissions
-      file:
-        path: "{{ zuul.project.src_dir }}"
-        mode: 0755
-
-    - name: Display workspace info
+    - name: Display connection info
       debug:
         msg: |
+          ✅ Connected to node: {{ inventory_hostname }}
           Workspace: {{ zuul.project.src_dir }}
-          Executor user: {{ zuul.executor.user }}
-          Node: {{ inventory_hostname }}
+          Executor user: {{ zuul.executor.user | default('root') }}
