@@ -1,19 +1,22 @@
 Complete Step-by-Step Guide: Setting up Zuul with External Node
 Prerequisites
-Two machines: Main Machine (Zuul server) and Node Machine (execution node)
+- Two machines: Main Machine (Zuul server) and Node Machine (execution node)
 
-Both machines should be on the same network and able to ping each other
+- Both machines should be on the same network and able to ping each other
 
-Docker and Docker Compose installed on Main Machine
+- Docker and Docker Compose installed on Main Machine
 
-SSH access between machines
+- SSH access between machines
 
-On Main Machine (Zuul Server)
+# On Main Machine (Zuul Server)
 Step 1: Clone and Setup Zuul
-bash
 # Clone Zuul repository
+```
 git clone https://opendev.org/zuul/zuul
+```
+```
 cd zuul/doc/source/examples
+```
 
 # Generate SSH keys for nodepool
 mkdir -p playbooks/files
