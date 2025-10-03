@@ -1,16 +1,6 @@
 ---
 - hosts: all
-  gather_facts: false
   tasks:
-    - name: Force Ansible connection variables
-      set_fact:
-        ansible_ssh_private_key_file: /var/ssh/nodepool
-        ansible_user: minson
-        ansible_ssh_common_args: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
-
-    - name: Test connection with forced variables
-      ping:
-
     - name: Create workspace
       file:
         path: "{{ zuul.project.src_dir }}"
@@ -19,4 +9,4 @@
 
     - name: Display connection info
       debug:
-        msg: "Connected to {{ inventory_hostname }} using key {{ ansible_ssh_private_key_file }}"
+        msg: "Connected to {{ inventory_hostname }}"
