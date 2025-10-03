@@ -1,35 +1,11 @@
 ---
 - hosts: all
-  gather_facts: false
   tasks:
-    - name: Create .ssh directory for executor
-      file:
-        path: /root/.ssh
-        state: directory
-        mode: 0700
-
-    - name: Copy SSH key to standard location
-      copy:
-        src: /var/ssh/nodepool
-        dest: /root/.ssh/id_rsa
-        mode: 0600
-        remote_src: yes
-
-    - name: Add host to known_hosts
-      shell: |
-        ssh-keyscan 172.17.225.44 >> /root/.ssh/known_hosts
-      args:
-        creates: /root/.ssh/known_hosts
-
-    - name: Create SSH config
-      copy:
-        dest: /root/.ssh/config
-        content: |
-          Host 172.17.225.44
-            User minson
-            IdentityFile /root/.ssh/id_rsa
-            StrictHostKeyChecking no
-        mode: 0600
+    - name: Set Ansible SSH configuration for static node
+      set_fact:
+        ansible_ssh_private_key_file: /var/ssh/nodepool
+        ansible_user: minson
+        ansible_ssh_common_args: -o StrictHostKeyChecking=no
 
     - name: Test SSH connection
       ping:
@@ -40,6 +16,16 @@
         state: directory
         mode: 0755
 
-    - name: Display success message
+    - name: Ensure workspace is writable
+      file:
+        path: "{{ zuul.project.src_dir }}"
+        owner: "{{ zuul.executor.user | default('root') }}"
+        group: "{{ zuul.executor.user | default('root') }}"
+        recurse: yes
+
+    - name: Display connection info
       debug:
-        msg: "✅ SSH configured successfully for node {{ inventory_hostname }}"
+        msg: |
+          ✅ Connected to node: {{ inventory_hostname }}
+          Using SSH key: /var/ssh/nodepool
+          Workspace: {{ zuul.project.src_dir }}
