@@ -19,8 +19,3 @@
     nodes:
       - name: 172.17.225.44
         label: external-node
-
-- job:
-    name: noop
-    parent: base
-    run: playbooks/noop.yaml
