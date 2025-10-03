@@ -1,31 +1,22 @@
 ---
 - hosts: all
+  gather_facts: false
   tasks:
-    - name: Set Ansible SSH configuration for static node
+    - name: Force Ansible connection variables
       set_fact:
         ansible_ssh_private_key_file: /var/ssh/nodepool
         ansible_user: minson
-        ansible_ssh_common_args: -o StrictHostKeyChecking=no
+        ansible_ssh_common_args: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
 
-    - name: Test SSH connection
+    - name: Test connection with forced variables
       ping:
 
-    - name: Create zuul workspace
+    - name: Create workspace
       file:
         path: "{{ zuul.project.src_dir }}"
         state: directory
         mode: 0755
 
-    - name: Ensure workspace is writable
-      file:
-        path: "{{ zuul.project.src_dir }}"
-        owner: "{{ zuul.executor.user | default('root') }}"
-        group: "{{ zuul.executor.user | default('root') }}"
-        recurse: yes
-
     - name: Display connection info
       debug:
-        msg: |
-          ✅ Connected to node: {{ inventory_hostname }}
-          Using SSH key: /var/ssh/nodepool
-          Workspace: {{ zuul.project.src_dir }}
+        msg: "Connected to {{ inventory_hostname }} using key {{ ansible_ssh_private_key_file }}"
