@@ -18,7 +18,7 @@
     default-branch: master
 
 - project:
-    name: Minson2951/zuul_config
+    name: Minson2951/nodes_zuul_config
     default-branch: main
     gh_check:
       jobs:
