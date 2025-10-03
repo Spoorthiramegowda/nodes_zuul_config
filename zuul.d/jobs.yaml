@@ -1,16 +1,24 @@
 ---
 - job:
-    name: base-static
+    name: base
     parent: null
     description: |
-      Base job for static nodes with SSH configuration.
+      The recommended base job with SSH key management.
     pre-run: playbooks/base/pre-static.yaml
     post-run:
       - playbooks/base/post-logs.yaml
-    environment:
-      ANSIBLE_PRIVATE_KEY_FILE: /var/ssh/nodepool
-      ANSIBLE_HOST_KEY_CHECKING: "False"
-      ANSIBLE_SSH_COMMON_ARGS: "-o StrictHostKeyChecking=no"
+    roles:
+      - zuul: zuul/zuul-jobs
+    timeout: 1800
+
+- job:
+    name: base-static
+    parent: null
+    description: |
+      Base job for static nodes without SSH key management.
+    pre-run: playbooks/base/pre-static.yaml
+    post-run:
+      - playbooks/base/post-logs.yaml
     timeout: 1800
 
 - nodeset:
