@@ -1,5 +1,45 @@
 ---
 - hosts: all
-  roles:
-    - add-build-sshkey
-    - prepare-workspace
+  gather_facts: false
+  tasks:
+    - name: Create .ssh directory for executor
+      file:
+        path: /root/.ssh
+        state: directory
+        mode: 0700
+
+    - name: Copy SSH key to standard location
+      copy:
+        src: /var/ssh/nodepool
+        dest: /root/.ssh/id_rsa
+        mode: 0600
+        remote_src: yes
+
+    - name: Add host to known_hosts
+      shell: |
+        ssh-keyscan 172.17.225.44 >> /root/.ssh/known_hosts
+      args:
+        creates: /root/.ssh/known_hosts
+
+    - name: Create SSH config
+      copy:
+        dest: /root/.ssh/config
+        content: |
+          Host 172.17.225.44
+            User minson
+            IdentityFile /root/.ssh/id_rsa
+            StrictHostKeyChecking no
+        mode: 0600
+
+    - name: Test SSH connection
+      ping:
+
+    - name: Create zuul workspace
+      file:
+        path: "{{ zuul.project.src_dir }}"
+        state: directory
+        mode: 0755
+
+    - name: Display success message
+      debug:
+        msg: "✅ SSH configured successfully for node {{ inventory_hostname }}"
