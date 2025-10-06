@@ -14,7 +14,7 @@
 - nodeset:
     name: main-nodeset
     nodes:
-      - name: main-machine
+      - name: 172.19.0.10
         label: main-machine
         
 - nodeset:
