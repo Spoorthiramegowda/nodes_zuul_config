@@ -1,45 +1,9 @@
 ---
-- hosts: all
+- hosts: localhost
   gather_facts: false
-  tasks:
-    - name: Create logs directory on node
-      file:
-        path: "/home/minson/zuul-logs/{{ zuul.job }}-{{ zuul.build }}"
-        state: directory
-        mode: '0755'
-        owner: minson
-        group: minson
-
-    - name: Generate job summary log on node
-      copy:
-        dest: "/home/minson/zuul-logs/{{ zuul.job }}-{{ zuul.build }}/job-summary.txt"
-        content: |
-          ZUUL JOB SUMMARY
-          ================
-          Job: {{ zuul.job }}
-          Project: {{ zuul.project }}
-          Build: {{ zuul.build }}
-          Branch: {{ zuul.branch }}
-          Pipeline: {{ zuul.pipeline }}
-          
-          Node: {{ inventory_hostname }}
-          Distribution: Ubuntu 22.04
-          
-          Job Results: SUCCESS
-        owner: minson
-        group: minson
-
-    - name: List log files on node
-      command: ls -la "/home/minson/zuul-logs/{{ zuul.job }}-{{ zuul.build }}/"
-      register: node_log_files
-      changed_when: false
-
-    - name: Display node log files
-      debug:
-        msg: "Log files on node {{ inventory_hostname }}: {{ node_log_files.stdout_lines }}"
-
-    - name: Confirm node log storage
-      debug:
-        msg: |
-          Logs stored on node at: /home/minson/zuul-logs/{{ zuul.job }}-{{ zuul.build }}/
-          Access them via SSH to the node.
+  roles:
+    - generate-zuul-manifest
+    - role: upload-logs
+      vars:
+        # use your dns or ip address here
+        zuul_log_url: "http://localhost:8000"
