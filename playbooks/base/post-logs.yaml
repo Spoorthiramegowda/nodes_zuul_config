@@ -2,3 +2,7 @@
 - hosts: localhost
   gather_facts: false
   roles:
+    - role: upload-logs
+      vars:
+        # use your dns or ip address here
+        zuul_log_url: "http://localhost:8000"
