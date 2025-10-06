@@ -2,15 +2,15 @@
 - hosts: localhost
   gather_facts: false
   tasks:
-    - name: Create logs directory
+    - name: Create logs directory in workspace
       file:
-        path: "{{ zuul.log_dir }}"
+        path: "{{ zuul.project.src_dir }}/logs"
         state: directory
         mode: '0755'
 
     - name: Generate job summary log
       copy:
-        dest: "{{ zuul.log_dir }}/job-summary.txt"
+        dest: "{{ zuul.project.src_dir }}/logs/job-summary-{{ zuul.job }}-{{ zuul.build }}.txt"
         content: |
           ZUUL JOB SUMMARY
           ================
@@ -29,35 +29,37 @@
           - Main run: SUCCESS  
           - Post-run: SUCCESS
 
-    - name: Create console output copy
-      copy:
-        dest: "{{ zuul.log_dir }}/full-console.log"
-        content: "{{ zuul.console_log }}"
-      when: zuul.console_log is defined
-
     - name: Generate artifacts manifest
       copy:
-        dest: "{{ zuul.log_dir }}/artifacts-manifest.txt"
+        dest: "{{ zuul.project.src_dir }}/logs/artifacts-manifest-{{ zuul.job }}-{{ zuul.build }}.txt"
         content: |
           ARTIFACTS MANIFEST
           ==================
           Job: {{ zuul.job }}
-          Build URL: {{ zuul.build_url }}
+          Build: {{ zuul.build }}
           
-          Available Artifacts:
-          - Console Log: full-console.log
-          - Job Summary: job-summary.txt
-          - This Manifest: artifacts-manifest.txt
+          Available Logs:
+          - This manifest
+          - Job summary
+          - Console output (in Zuul UI)
 
-    - name: Upload logs to Zuul
-      zuul_upload:
-        dest: "{{ zuul.log_dir }}"
+    - name: List created log files
+      command: ls -la "{{ zuul.project.src_dir }}/logs/"
+      register: log_files
+      changed_when: false
 
-    - name: Confirm log upload
+    - name: Display log files location
       debug:
         msg: |
-          Logs uploaded successfully!
-          Check Zuul UI for:
-          - Console output
+          Log files created at: {{ zuul.project.src_dir }}/logs/
+          Files: {{ log_files.stdout_lines }}
+
+    - name: Confirm log creation
+      debug:
+        msg: |
+          Log files created successfully!
+          Check workspace logs directory for:
           - Job summary
           - Artifacts manifest
+          
+          Console output is automatically available in Zuul UI.
