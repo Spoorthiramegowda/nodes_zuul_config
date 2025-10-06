@@ -48,8 +48,6 @@
           - Console Log: full-console.log
           - Job Summary: job-summary.txt
           - This Manifest: artifacts-manifest.txt
-          
-          Generated: {{ ansible_date_time.iso8601 }}
 
     - name: Upload logs to Zuul
       zuul_upload:
