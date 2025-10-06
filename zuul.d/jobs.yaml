@@ -12,21 +12,13 @@
     timeout: 1800
 
 - nodeset:
-    name: external-nodeset
-    nodes:
-      - name: 172.17.225.44
-        label: external-node
-
-- nodeset:
     name: main-nodeset
     nodes:
       - name: 172.17.225.144
         label: main-machine
-
+        
 - nodeset:
-    name: combined-nodeset
+    name: external-nodeset
     nodes:
-      - name: 172.17.225.144
-        label: main-machine
       - name: 172.17.225.44
         label: external-node
