@@ -7,6 +7,8 @@
     pre-run: playbooks/base/pre.yaml
     post-run:
       - playbooks/base/post-logs.yaml
+    roles:
+      - zuul: zuul/zuul-jobs
     timeout: 1800
 
 - nodeset:
