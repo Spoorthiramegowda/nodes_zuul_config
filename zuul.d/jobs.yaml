@@ -20,13 +20,13 @@
 - nodeset:
     name: main-nodeset
     nodes:
-      - name: localhost
+      - name: 172.17.225.144
         label: main-machine
 
 - nodeset:
     name: combined-nodeset
     nodes:
-      - name: localhost
+      - name: 172.17.225.144
         label: main-machine
       - name: 172.17.225.44
         label: external-node
