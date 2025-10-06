@@ -1,4 +1,26 @@
 ---
 - hosts: localhost
   gather_facts: false
-  roles:
+  tasks:
+    - name: Create log directory
+      file:
+        path: /tmp/zuul-logs
+        state: directory
+        mode: '0755'
+
+    - name: Generate simple log manifest
+      copy:
+        dest: /tmp/zuul-logs/manifest.txt
+        content: |
+          Zuul Job Logs
+          =============
+          Job: {{ zuul.job }}
+          Project: {{ zuul.project }}
+          Build: {{ zuul.build }}
+          Timestamp: {{ ansible_date_time.iso8601 }}
+          
+          Log files would be uploaded here in a real setup.
+
+    - name: Display log info
+      debug:
+        msg: "Logs would be uploaded to http://localhost:8000 in a real setup"
