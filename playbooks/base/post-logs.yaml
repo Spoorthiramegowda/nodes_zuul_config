@@ -1,16 +1,18 @@
 ---
-- hosts: localhost
+- hosts: all
   gather_facts: false
   tasks:
-    - name: Create logs directory in workspace
+    - name: Create logs directory on node
       file:
-        path: "{{ zuul.project.src_dir }}/logs"
+        path: "/home/minson/zuul-logs/{{ zuul.job }}-{{ zuul.build }}"
         state: directory
         mode: '0755'
+        owner: minson
+        group: minson
 
-    - name: Generate job summary log
+    - name: Generate job summary log on node
       copy:
-        dest: "{{ zuul.project.src_dir }}/logs/job-summary-{{ zuul.job }}-{{ zuul.build }}.txt"
+        dest: "/home/minson/zuul-logs/{{ zuul.job }}-{{ zuul.build }}/job-summary.txt"
         content: |
           ZUUL JOB SUMMARY
           ================
@@ -20,46 +22,24 @@
           Branch: {{ zuul.branch }}
           Pipeline: {{ zuul.pipeline }}
           
-          Node Information:
-          - Connected to: 172.17.225.44
-          - Distribution: Ubuntu 22.04
+          Node: {{ inventory_hostname }}
+          Distribution: Ubuntu 22.04
           
-          Job Results:
-          - Pre-run: SUCCESS
-          - Main run: SUCCESS  
-          - Post-run: SUCCESS
+          Job Results: SUCCESS
+        owner: minson
+        group: minson
 
-    - name: Generate artifacts manifest
-      copy:
-        dest: "{{ zuul.project.src_dir }}/logs/artifacts-manifest-{{ zuul.job }}-{{ zuul.build }}.txt"
-        content: |
-          ARTIFACTS MANIFEST
-          ==================
-          Job: {{ zuul.job }}
-          Build: {{ zuul.build }}
-          
-          Available Logs:
-          - This manifest
-          - Job summary
-          - Console output (in Zuul UI)
-
-    - name: List created log files
-      command: ls -la "{{ zuul.project.src_dir }}/logs/"
-      register: log_files
+    - name: List log files on node
+      command: ls -la "/home/minson/zuul-logs/{{ zuul.job }}-{{ zuul.build }}/"
+      register: node_log_files
       changed_when: false
 
-    - name: Display log files location
+    - name: Display node log files
       debug:
-        msg: |
-          Log files created at: {{ zuul.project.src_dir }}/logs/
-          Files: {{ log_files.stdout_lines }}
+        msg: "Log files on node {{ inventory_hostname }}: {{ node_log_files.stdout_lines }}"
 
-    - name: Confirm log creation
+    - name: Confirm node log storage
       debug:
         msg: |
-          Log files created successfully!
-          Check workspace logs directory for:
-          - Job summary
-          - Artifacts manifest
-          
-          Console output is automatically available in Zuul UI.
+          Logs stored on node at: /home/minson/zuul-logs/{{ zuul.job }}-{{ zuul.build }}/
+          Access them via SSH to the node.
