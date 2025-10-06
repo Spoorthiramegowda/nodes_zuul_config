@@ -1,12 +1,8 @@
 ---
 - hosts: all
+  roles:
+    - prepare-workspace
   tasks:
-    - name: Create workspace
-      file:
-        path: "{{ zuul.project.src_dir }}"
-        state: directory
-        mode: 0755
-
     - name: Display connection info
       debug:
         msg: "Connected to {{ inventory_hostname }}"
