@@ -17,7 +17,6 @@
           Job: {{ zuul.job }}
           Project: {{ zuul.project }}
           Build: {{ zuul.build }}
-          Timestamp: {{ ansible_date_time.iso8601 }}
           
           Log files would be uploaded here in a real setup.
 
