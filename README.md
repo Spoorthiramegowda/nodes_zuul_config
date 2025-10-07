@@ -53,11 +53,23 @@ Edit nodepool.yaml to add node:
 	  -name: ... add multiple nodes
 
 
-    name: add IP ADD # replace your node IP
-    labels: external-node 
-    host-key: "KEY" # replace you actual key 
-    python-path: /usr/bin/python3
-    username: username # replace your username
+    providers:
+  - name: static-vms
+    driver: static
+    pools:
+      - name: main
+        nodes:
+          - name: node
+            labels: ubuntu-jammy
+            host-key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOgHJYejINIKzUiuSJ2MN8uPc+dfFrZ9JH1hLWS8gI+g"
+            python-path: /usr/bin/python3
+            username: root
+          - name: Ip address # add your node Ip address
+            labels: external-node
+            host-key: "Key" # replace your key
+            python-path: /usr/bin/python3
+            username: user # replace your user name
+          
 
 - Note: To [Get ip address, host key, username](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#ip-host-key-and-username) run the commands in Node machine, copy it and replace it.
 	 
