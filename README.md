@@ -49,7 +49,8 @@ Edit nodepool.yaml to add node:
 
     labels:
       -name: ubuntu-jammy # default
-      -name: external-node # added. label name can change it later
+      -name: external-node # added
+	  -name: ... add multiple nodes
 
 
     name: add IP ADD # replace your node IP
