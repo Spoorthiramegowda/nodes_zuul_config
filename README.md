@@ -70,7 +70,7 @@ for example: **ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAcTTab4ZllNk9u+j+zI8gKzX5M0w
 
 paste only *ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAcTTab4ZllNk9u+j+zI8gKzX5M0wxhFV3bOLgxPziP4* in **nodepool.yaml**
 
-### Note: Now follow Node machine setup below and then continue Step 3 and Step 4 on Main machine
+### Note: Now follow [Node machine setup](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#on-node-machine-execution-node) below and then continue Step 3 and Step 4 on Main machine
 ## Step 3: Start Zuul Services
 #### Start services
 ```
