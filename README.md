@@ -29,7 +29,7 @@ chmod 600 playbooks/files/nodepool
 ```
 chmod 644 playbooks/files/nodepool.pub
 ```
-#### preview file
+### cat nodepool.pub
 ```
 cat playbooks/files/nodepool.pub
 ```
@@ -103,7 +103,7 @@ sudo mkdir -p /home/minson/.ssh
 sudo chmod 700 /home/minson/.ssh
 ```
 
-### Copy the [noodpool.pub](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#preview-file) from Main Machine and paste it here
+### Copy the [cat nodepool.pub](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#preview-file) from Main Machine and paste it here
 ```
 echo 'PASTE_PUBLIC_KEY_HERE' | sudo tee /home/minson/.ssh/authorized_keys
 ```
