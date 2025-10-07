@@ -93,6 +93,9 @@ sudo docker exec examples_executor_1 ssh -o StrictHostKeyChecking=no minson@NODE
 ```
 This should return *SSH test successful*
 
+
+Now the Node setup is ready add your Node in [jobs.yaml](https://github.com/Minson2951/nodes_zuul_config/blob/915c40574b181b2ed8de18d7eaab69ffd827ced2/zuul.d/jobs.yaml) with another name and run your job on that node.
+
 # On Node Machine (Execution Node)
 ## Step 1: Prepare User and SSH Directory
 ### Create SSH directory (replace 'minson' with your username)
