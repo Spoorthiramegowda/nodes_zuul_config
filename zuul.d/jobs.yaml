@@ -20,5 +20,5 @@
 - nodeset:
     name: external-nodeset
     nodes:
-      - name: 172.17.225.44
+      - name: 172.17.225.188
         label: external-node
