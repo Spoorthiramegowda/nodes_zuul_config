@@ -103,7 +103,7 @@ sudo mkdir -p /home/minson/.ssh
 sudo chmod 700 /home/minson/.ssh
 ```
 
-### Copy the [cat nodepool.pub](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#preview-file) from Main Machine and paste it here
+### Copy the [cat nodepool.pub](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#cat-nodepoolpub) from Main Machine and paste it here
 ```
 echo 'PASTE_PUBLIC_KEY_HERE' | sudo tee /home/minson/.ssh/authorized_keys
 ```
