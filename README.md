@@ -1,24 +1,22 @@
+# STEPS TO ADD SINGLE NODE
+
 Complete Step-by-Step Guide: Setting up Zuul with External Node
 Prerequisites
 - Two machines: Main Machine (Zuul server) and Node Machine (execution node)
-
 - Both machines should be on the same network and able to ping each other
-
 - Docker and Docker Compose installed on Main Machine
-
 - SSH access between machines
 
+
 # On Main Machine (Zuul Server)
-Step 1: Clone and Setup Zuul
-# Clone Zuul repository
+## Step 1: Clone and Setup Zuul
 ```
 git clone https://opendev.org/zuul/zuul
 ```
 ```
 cd zuul/doc/source/examples
 ```
-
-# Generate SSH keys for nodepool
+### Generate SSH keys for nodepool
 ```
 mkdir -p playbooks/files
 ```
@@ -31,53 +29,77 @@ chmod 600 playbooks/files/nodepool
 ```
 chmod 644 playbooks/files/nodepool.pub
 ```
+```
+cat playbooks/files/nodepool.pub
+```
+The above **cat playbooks/files/nodepool.pub** shows the key starts from *ssh-rsa AAA...* copy it, we need to paste it in Node machine later.
 
-Step 2: Configure Docker Compose
+## Step 2: Configure Docker Compose and nodepool.yaml
 Edit docker-compose.yml and find the executor service. Add volume mounts:
 
-yaml
-executor:
-  # ... existing configuration ...
+> executor:
+  #... existing configuration ...
   volumes:
+     .... add the below two lines...
     - ./playbooks/files/nodepool:/root/.ssh/id_rsa:ro
     - ./playbooks/files/nodepool.pub:/root/.ssh/id_rsa.pub:ro
 
+Edit nodepool.yaml to add node:
 
-Step 3: Start Zuul Services
+> labels:
+  -name: ubuntu-jammy # default
+  -name: external-node # added 
 
-# Stop any running services
-```
-sudo docker-compose down
-```
-# Clean everything (optional)
-```
-sudo docker system prune -af
-```
-```
-sudo docker volume prune -f
-```
+>name: add IP ADD
+            labels: external-node 
+            host-key: "KEY" 
+            python-path: /usr/bin/python3
+            username: username
 
-# Start services
+- Note replace your node IP address, host key, username. to achieve this in Node machine
+	- Get IP
+	 ``` hostname -I ```
+	 - Host key
+	 ``` sudo cat /etc/ssh/ssh_host_ed25519_key.pub ```
+	 - Username
+	 ``` whoami```
+	 
+Note: for host-key it returns 
+for example: **ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAcTTab4ZllNk9u+j+zI8gKzX5M0wxhFV3bOLgxPziP4 root@hostname** 
+
+paste only *ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAcTTab4ZllNk9u+j+zI8gKzX5M0wxhFV3bOLgxPziP4 root@hostname* in **nodepool.yaml**
+
+### Note: Now follow Node machine setup below and then continue Step 3 and Step 4 on Main machine
+## Step 3: Start Zuul Services
+#### Start services
 ```
 sudo docker-compose up -d
 ```
-
-# Wait for full startup
+#### Wait for full startup
 ```
 sleep 90
 ```
-Step 4: Verify Setup
-
-# Check if nodepool recognizes the node
+## Step 4: Verify Setup
+#### Check if nodepool recognizes the node
 ```
 sudo docker exec examples_launcher_1 nodepool list
 ```
+Expected output
 
-# You should see your node in 'ready' state
-On Node Machine (Execution Node)
-Step 1: Prepare User and SSH Directory
+| ID | Provider | Label  | Server ID | Public IPv4  | IPv6 | State | Age | Locked |
+|--|--|--|--|--|--|--|--|--|
+| 0000000019 | static-vms | ubuntu-jammy | node | NODE_IP |  |ready | 20:00:50:35 | unlocked |
+0000000005 | static-vms | external-node | NODE_IP | NODE_IP |  | ready | 00:00:10:00 | unlocked |
 
-# Create SSH directory (replace 'minson' with your username)
+### Extra verification
+```
+sudo docker exec examples_executor_1 ssh -o StrictHostKeyChecking=no minson@NODE_IP "echo SSH test successful"
+```
+This should return *SSH test successful*
+
+# On Node Machine (Execution Node)
+## Step 1: Prepare User and SSH Directory
+### Create SSH directory (replace 'minson' with your username)
 ```
 sudo mkdir -p /home/minson/.ssh
 ```
@@ -85,69 +107,34 @@ sudo mkdir -p /home/minson/.ssh
 sudo chmod 700 /home/minson/.ssh
 ```
 
-# Get the PUBLIC KEY from Main Machine and add to authorized_keys 
-```
-cat playbooks/files/nodepool.pub
-```
-
-# Copy the content of playbooks/files/nodepool.pub from Main Machine
+### Copy the content of playbooks/files/nodepool.pub from Main Machine and paste it here
 ```
 echo 'PASTE_PUBLIC_KEY_HERE' | sudo tee /home/minson/.ssh/authorized_keys
 ```
 
-# Set proper permissions
+### Set proper permissions
 ```
 sudo chmod 600 /home/minson/.ssh/authorized_keys
 ```
 ```
 sudo chown -R minson:minson /home/minson/.ssh
 ```
-Step 2: Verify Node Accessibility
-
-# Find your node's IP address
-```
-ip addr show
-```
-
-# Make sure SSH service is running
+### Make sure SSH service is running
 ```
 sudo systemctl status ssh
 ```
-Back on Main Machine - Final Verification
-Step 1: Test SSH Connection
 
-# Replace IP with your Node Machine's IP
-```
-sudo docker exec examples_executor_1 ssh -o StrictHostKeyChecking=no minson@NODE_IP "echo SSH test successful"
-```
 
-# Test more commands
-```
-sudo docker exec examples_executor_1 ssh -o StrictHostKeyChecking=no minson@NODE_IP "whoami && pwd"
-```
-Step 2: Verify Nodepool Status
-```
-sudo docker exec examples_launcher_1 nodepool list
-```
-
-# Expected output:
-# +------------+------------+---------------+---------------+---------------+------+-------+-------------+----------+
-# | ID         | Provider   | Label         | Server ID     | Public IPv4   | IPv6 | State | Age         | Locked   |
-# +------------+------------+---------------+---------------+---------------+------+-------+-------------+----------+
-# | 0000000005 | static-vms | external-node | NODE_IP       | NODE_IP       |      | ready | 00:00:10:00 | unlocked |
-# +------------+------------+---------------+---------------+---------------+------+-------+-------------+----------+
-Troubleshooting Common Issues
-If SSH fails:
-bash
-# 1. Check if keys match
+# Troubleshooting Common Issues
+## If SSH fails:
+### Check if keys match
 ```
 cat playbooks/files/nodepool.pub
 ```
 ```
 sudo docker exec examples_executor_1 cat /root/.ssh/id_rsa.pub
 ```
-
-# 2. Manual key copy (if volumes aren't working)
+###  Manual key copy (if volumes aren't working)
 ```
 sudo docker cp playbooks/files/nodepool examples_executor_1:/root/.ssh/id_rsa
 ```
@@ -160,49 +147,28 @@ sudo docker exec examples_executor_1 chmod 600 /root/.ssh/id_rsa
 ```
 sudo docker exec examples_executor_1 chmod 644 /root/.ssh/id_rsa.pub
 ```
-
-# 3. Debug SSH connection
+### Debug SSH connection
 ```
 sudo docker exec examples_executor_1 ssh -vvv -o StrictHostKeyChecking=no minson@NODE_IP "echo test"
 ```
-If node doesn't appear in nodepool:
-
-# Check Zuul logs
-```
-sudo docker-compose logs launcher
-```
-```
-sudo docker-compose logs executor
-```
-
-# Restart services
+### Restart services
 ```
 sudo docker-compose restart
 ```
 
-Configuration Files Summary
-Main Machine Files:
-docker-compose.yml - Zuul services configuration
-
-nodepool.yaml - Node definitions
-
-playbooks/files/nodepool - SSH private key
-
-playbooks/files/nodepool.pub - SSH public key
-
-Node Machine Files:
-/home/minson/.ssh/authorized_keys - Contains the public key from main machine
-
-Quick Test Commands
-Once setup is complete, run these to verify:
-
-
-# On Main Machine
+# Common commands
+### Stop any running services
 ```
-sudo docker exec examples_launcher_1 nodepool list
+sudo docker-compose down
+```
+### Clean everything
+```
+sudo docker system prune -af
 ```
 ```
-sudo docker exec examples_executor_1 ssh -o StrictHostKeyChecking=no minson@NODE_IP "echo 'Zuul setup successful!'"
+sudo docker volume prune -f
 ```
-This complete guide should get anyone from zero to a working Zuul setup with external nodes!
-
+### Start services
+```
+sudo docker-compose up -d
+``
