@@ -124,6 +124,19 @@ sudo chown -R minson:minson /home/minson/.ssh
 ```
 sudo systemctl status ssh
 ```
+## IP, Host key and Username
+#### Ip address
+ ```
+ hostname -I
+```
+#### Host key
+ ```
+ sudo cat /etc/ssh/ssh_host_ed25519_key.pub
+```
+#### Username
+```
+whoami
+```
 
 
 # Troubleshooting Common Issues
