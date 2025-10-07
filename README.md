@@ -33,7 +33,7 @@ chmod 644 playbooks/files/nodepool.pub
 ```
 cat playbooks/files/nodepool.pub
 ```
-The above **cat playbooks/files/nodepool.pub** shows the key starts from *ssh-rsa AAA...* copy it, we need to paste it in Node machine later.
+The above **cat playbooks/files/nodepool.pub** shows the key starts from *ssh-rsa AAA...* copy the publick key, we need to paste it in [Node machine](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#copy-the-cat-nodepoolpub-from-main-machine-and-paste-it-here) later.
 
 ## Step 2: Configure Docker Compose and nodepool.yaml
 Edit docker-compose.yml and find the executor service. Add volume mounts:
