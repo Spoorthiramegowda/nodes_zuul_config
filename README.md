@@ -57,13 +57,7 @@ Edit nodepool.yaml to add node:
     python-path: /usr/bin/python3
     username: username
 
-- Note replace your node IP address, host key, username. to achieve this follow below cmd in Node machine
-	- Get IP
-	 ``` hostname -I ```
-	 - Host key
-	 ``` sudo cat /etc/ssh/ssh_host_ed25519_key.pub ```
-	 - Username
-	 ``` whoami```
+- Note now follow [Get ip address, host key, username]
 	 
 Note: for host-key it returns 
 for example: **ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAcTTab4ZllNk9u+j+zI8gKzX5M0wxhFV3bOLgxPziP4 root@hostname** 
