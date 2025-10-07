@@ -29,6 +29,7 @@ chmod 600 playbooks/files/nodepool
 ```
 chmod 644 playbooks/files/nodepool.pub
 ```
+#### preview file
 ```
 cat playbooks/files/nodepool.pub
 ```
