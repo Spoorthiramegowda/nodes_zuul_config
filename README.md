@@ -52,12 +52,12 @@ Edit nodepool.yaml to add node:
 
 
     name: add IP ADD
-                labels: external-node 
-                host-key: "KEY" 
-                python-path: /usr/bin/python3
-                username: username
+    labels: external-node 
+    host-key: "KEY" 
+    python-path: /usr/bin/python3
+    username: username
 
-- Note replace your node IP address, host key, username. to achieve this in Node machine
+- Note replace your node IP address, host key, username. to achieve this follow below cmd in Node machine
 	- Get IP
 	 ``` hostname -I ```
 	 - Host key
