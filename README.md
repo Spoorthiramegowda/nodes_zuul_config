@@ -37,24 +37,25 @@ The above **cat playbooks/files/nodepool.pub** shows the key starts from *ssh-rs
 ## Step 2: Configure Docker Compose and nodepool.yaml
 Edit docker-compose.yml and find the executor service. Add volume mounts:
 
-> executor:
-  #... existing configuration ...
-  volumes:
-     .... add the below two lines...
-    - ./playbooks/files/nodepool:/root/.ssh/id_rsa:ro
-    - ./playbooks/files/nodepool.pub:/root/.ssh/id_rsa.pub:ro
+    executor:
+      #... existing configuration ...
+      volumes:
+         .... add the below two lines...
+        - ./playbooks/files/nodepool:/root/.ssh/id_rsa:ro
+        - ./playbooks/files/nodepool.pub:/root/.ssh/id_rsa.pub:ro
 
 Edit nodepool.yaml to add node:
 
-> labels:
-  -name: ubuntu-jammy # default
-  -name: external-node # added 
+    labels:
+      -name: ubuntu-jammy # default
+      -name: external-node # added 
 
->name: add IP ADD
-            labels: external-node 
-            host-key: "KEY" 
-            python-path: /usr/bin/python3
-            username: username
+
+    name: add IP ADD
+                labels: external-node 
+                host-key: "KEY" 
+                python-path: /usr/bin/python3
+                username: username
 
 - Note replace your node IP address, host key, username. to achieve this in Node machine
 	- Get IP
