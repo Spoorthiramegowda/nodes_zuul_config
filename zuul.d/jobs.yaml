@@ -14,8 +14,8 @@
 - nodeset:
     name: main-nodeset
     nodes:
-      - name: 172.19.0.10
-        label: main-machine
+      - name: ubuntu-jammy
+        label: ubuntu-jammy
         
 - nodeset:
     name: external-nodeset
