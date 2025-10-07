@@ -49,14 +49,14 @@ Edit nodepool.yaml to add node:
 
     labels:
       -name: ubuntu-jammy # default
-      -name: external-node # added 
+      -name: external-node # added. label name can change it later
 
 
-    name: add IP ADD
+    name: add IP ADD # replace your node IP
     labels: external-node 
-    host-key: "KEY" 
+    host-key: "KEY" # replace you actual key 
     python-path: /usr/bin/python3
-    username: username
+    username: username # replace your username
 
 - Note: To [Get ip address, host key, username](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#ip-host-key-and-username) run the commands in Node machine, copy it and replace it.
 	 
