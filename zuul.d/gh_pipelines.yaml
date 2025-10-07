@@ -6,7 +6,7 @@
       initial check status.
     manager: independent
     trigger:
-      nodechecking:
+      zuultesting:
         - event: pull_request
           action:
             - opened
@@ -19,19 +19,19 @@
           action: rerequested
           check: .*/check:.*
     start:
-      nodechecking:
+      zuultesting:
         check: 'in_progress'
         comment: false
     success:
-      nodechecking:
+      zuultesting:
         check: 'success'
         comment: false
     failure:
-      nodechecking:
+      zuultesting:
         check: 'failure'
         comment: false
     dequeue:
-      nodechecking:
+      zuultesting:
         check: cancelled
         comment: false
 
@@ -45,7 +45,7 @@
     precedence: high
     supercedes: gh_check
     require:
-      nodechecking:
+      zuultesting:
         review:
           - permission: write
             type: approved
@@ -53,7 +53,7 @@
         open: true
         current-patchset: true
     trigger:
-      nodechecking:
+      zuultesting:
         - event: pull_request_review
           action: submitted
           state:
@@ -76,20 +76,20 @@
           label:
             - gate
     start:
-      nodechecking:
+      zuultesting:
         check: 'in_progress'
         comment: false
     success:
-      nodechecking:
+      zuultesting:
         check: 'success'
         comment: false
         merge: true
     failure:
-      nodechecking:
+      zuultesting:
         check: 'failure'
         comment: false
     dequeue:
-      nodechecking:
+      zuultesting:
         check: cancelled
         comment: false
     window-floor: 20
@@ -103,7 +103,7 @@
     manager: independent
     precedence: low
     trigger:
-      nodechecking:
+      zuultesting:
         - event: push
           ref: ^refs/heads/.*$
 
@@ -114,7 +114,7 @@
     precedence: high
     post-review: true
     trigger:
-      nodechecking:
+      zuultesting:
         - event: push
           ref: ^refs/tags/.*$
 
@@ -126,14 +126,14 @@
       timer:
         - time: "0 4 * * *"  # 4:00 AM every day
     start:
-      nodechecking:
+      zuultesting:
         check: 'in_progress'
         comment: false
     success:
-      nodechecking:
+      zuultesting:
         check: 'success'
         comment: false
     failure:
-      nodechecking:
+      zuultesting:
         check: 'failure'
         comment: false
