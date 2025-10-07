@@ -1,4 +1,4 @@
-# STEPS TO ADD SINGLE NODE
+# Node setup
 
 Complete Step-by-Step Guide: Setting up Zuul with External Node
 Prerequisites
