@@ -68,7 +68,7 @@ Edit nodepool.yaml to add node:
 Note: for host-key it returns 
 for example: **ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAcTTab4ZllNk9u+j+zI8gKzX5M0wxhFV3bOLgxPziP4 root@hostname** 
 
-paste only *ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAcTTab4ZllNk9u+j+zI8gKzX5M0wxhFV3bOLgxPziP4 root@hostname* in **nodepool.yaml**
+paste only *ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAcTTab4ZllNk9u+j+zI8gKzX5M0wxhFV3bOLgxPziP4* in **nodepool.yaml**
 
 ### Note: Now follow Node machine setup below and then continue Step 3 and Step 4 on Main machine
 ## Step 3: Start Zuul Services
