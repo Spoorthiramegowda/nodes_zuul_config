@@ -124,7 +124,47 @@
     manager: independent
     trigger:
       timer:
-        - time: "0 4 * * *"  # 4:00 AM every day
+        - time: "0 0 * * 1-5" # 12:00 AM Monday to Friday (no weekends)
+    start:
+      zuultesting:
+        check: 'in_progress'
+        comment: false
+    success:
+      zuultesting:
+        check: 'success'
+        comment: false
+    failure:
+      zuultesting:
+        check: 'failure'
+        comment: false
+
+- pipeline:
+    name: weekly
+    description: "Weekly comprehensive tests run every Monday at 2 AM"
+    manager: independent
+    trigger:
+      timer:
+        - time: "0 7 * * 6"  # 7:00 AM every Saturday
+    start:
+      zuultesting:
+        check: 'in_progress'
+        comment: false
+    success:
+      zuultesting:
+        check: 'success'
+        comment: false
+    failure:
+      zuultesting:
+        check: 'failure'
+        comment: false
+
+- pipeline:
+    name: periodic_3h_weekdays
+    description: "Runs every 3 hours from 6:00 AM to 12:00 AM, Monday to Friday"
+    manager: independent
+    trigger:
+      timer:
+        - time: "0 6,9,12,15,18,21 * * 1-5"  # Every 3 hours from 6AM to 9PM, Mon-Fri
     start:
       zuultesting:
         check: 'in_progress'
