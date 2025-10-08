@@ -12,6 +12,10 @@
       jobs: []
     nightly:
       jobs: []
+    weekly:
+      jobs: []
+    periodic_3h_weekdays:
+      jobs: []
 
 - project:
     name: zuul/zuul-jobs
@@ -33,5 +37,11 @@
       jobs:
         - noop
     nightly:
+      jobs:
+        - noop
+    weekly:
+      jobs:
+        - noop
+    periodic_3h_weekdays:
       jobs:
         - noop
