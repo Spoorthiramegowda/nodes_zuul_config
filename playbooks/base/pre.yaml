@@ -9,10 +9,12 @@
       debug:
         msg: "Connected to {{ inventory_hostname }}"
     
-    - name: Display all OS-related facts
+    - name: Check if Linux using system fact
       debug:
-        msg: |
-          os_family: {{ ansible_facts['os_family'] | default('NOT SET') }}
-          system: {{ ansible_facts['system'] | default('NOT SET') }}
-          distribution: {{ ansible_facts['distribution'] | default('NOT SET') }}
-          kernel: {{ ansible_facts['kernel'] | default('NOT SET') }}
+        msg: "This is a Linux machine"
+      when: ansible_facts['system'] == "Linux"
+    
+    - name: Check if Windows using system fact
+      debug:
+        msg: "This is a Windows machine"
+      when: ansible_facts['system'] == "Win32NT"
