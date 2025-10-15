@@ -15,8 +15,8 @@
 - nodeset:
     name: main-nodeset
     nodes:
-      - name: ubuntu-jammy
-        label: ubuntu-jammy
+      - name: localhost
+        label: localhost
         
 - nodeset:
     name: external-nodeset
