@@ -120,7 +120,7 @@
 
 - pipeline:
     name: nightly
-    description: "Nightly run at 4 AM"
+    description: "Nightly run at 12 AM"
     manager: independent
     trigger:
       timer:
@@ -140,7 +140,7 @@
 
 - pipeline:
     name: weekly
-    description: "Weekly comprehensive tests run every Monday at 2 AM"
+    description: "Weekly comprehensive tests run every saturday at 7 AM"
     manager: independent
     trigger:
       timer:
@@ -160,7 +160,7 @@
 
 - pipeline:
     name: periodic_3h_weekdays
-    description: "Runs every 3 hours from 6:00 AM to 12:00 AM, Monday to Friday"
+    description: "Runs every 3 hours from 6:00 AM to 09:00 PM, Monday to Friday"
     manager: independent
     trigger:
       timer:
