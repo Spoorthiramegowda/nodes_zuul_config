@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  gather_facts: yes
   roles:
     - add-build-sshkey
     - prepare-workspace
@@ -7,3 +8,13 @@
     - name: Display connection info
       debug:
         msg: "Connected to {{ inventory_hostname }}"
+    
+    - name: Check if Linux
+      debug:
+        msg: "This is a Linux machine"
+      when: ansible_facts['os_family'] == "Linux"
+    
+    - name: Check if Windows
+      debug:
+        msg: "This is a Windows machine"
+      when: ansible_facts['os_family'] == "Windows"
