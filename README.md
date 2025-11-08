@@ -1,3 +1,44 @@
+# Tutorial: nodes_zuul_config
+
+This project demonstrates how to set up the **Zuul CI System** to utilize *external machines* for running continuous integration jobs. It guides users through configuring **SSH Key Management** for secure access, defining **Nodepool** settings to manage these external nodes, and structuring **Zuul Pipelines** and **Jobs** to execute automated tasks on them. Essentially, it's a blueprint for distributed CI/CD with Zuul.
+
+
+## Visual Overview
+
+```mermaid
+flowchart TD
+    A0["Zuul CI System
+"]
+    A1["Nodepool
+"]
+    A2["External Node
+"]
+    A3["Zuul Pipelines
+"]
+    A4["Zuul Jobs
+"]
+    A5["Nodeset
+"]
+    A6["Ansible Playbooks
+"]
+    A7["SSH Key Management
+"]
+    A8["Project Configuration
+"]
+    A8 -- "Configures behavior for" --> A0
+    A0 -- "Delegates node management to" --> A1
+    A1 -- "Manages" --> A2
+    A0 -- "Orchestrates workflows via" --> A3
+    A3 -- "Triggers execution of" --> A4
+    A4 -- "Defines node requirements via" --> A5
+    A5 -- "Requests nodes from" --> A1
+    A4 -- "Executes" --> A6
+    A6 -- "Performs actions on" --> A2
+    A0 -- "Utilizes for secure access" --> A7
+    A7 -- "Secures access to" --> A2
+```
+
+
 # Node setup
 
 Complete Step-by-Step Guide: Setting up Zuul with External Node
