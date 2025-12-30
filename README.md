@@ -1,9 +1,12 @@
+# Chapters
+1. [Node setup](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#node-setup)
+
 # Tutorial: nodes_zuul_config
 
 This project demonstrates how to set up the **Zuul CI System** to utilize *external machines* for running continuous integration jobs. It guides users through configuring **SSH Key Management** for secure access, defining **Nodepool** settings to manage these external nodes, and structuring **Zuul Pipelines** and **Jobs** to execute automated tasks on them. Essentially, it's a blueprint for distributed CI/CD with Zuul.
 
 
-## Visual Overview
+# Visual Overview
 
 ```mermaid
 flowchart TD
@@ -49,15 +52,15 @@ Prerequisites
 - SSH access between machines
 
 
-# On Main Machine (Zuul Server)
-## Step 1: Clone and Setup Zuul
+## On Main Machine (Zuul Server)
+### Step 1: Clone and Setup Zuul
 ```
 git clone https://opendev.org/zuul/zuul
 ```
 ```
 cd zuul/doc/source/examples
 ```
-### Generate SSH keys for nodepool
+#### Generate SSH keys for nodepool
 ```
 mkdir -p playbooks/files
 ```
@@ -70,13 +73,13 @@ chmod 600 playbooks/files/nodepool
 ```
 chmod 644 playbooks/files/nodepool.pub
 ```
-### cat nodepool.pub
+#### cat nodepool.pub
 ```
 cat playbooks/files/nodepool.pub
 ```
 The above **cat playbooks/files/nodepool.pub** shows the key starts from *ssh-rsa AAA...* copy the publick key, we need to paste it in [Node machine](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#copy-the-cat-nodepoolpub-from-main-machine-and-paste-it-here) later.
 
-## Step 2: Configure Docker Compose and nodepool.yaml
+### Step 2: Configure Docker Compose and nodepool.yaml
 Edit docker-compose.yml and find the executor service. Add volume mounts:
 
     executor:
@@ -119,18 +122,18 @@ Note: for host-key it returns
 
 paste only *ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAcTTab4ZllNk9u+j+zI8gKzX5M0wxhFV3bOLgxPziP4* in **nodepool.yaml**
 
-### Note: Now follow [Node machine setup](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#on-node-machine-execution-node) below and then continue Step 3 and Step 4 on Main machine
-## Step 3: Start Zuul Services
-#### Start services
+#### Note: Now follow [Node machine setup](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#on-node-machine-execution-node) below and then continue Step 3 and Step 4 on Main machine
+### Step 3: Start Zuul Services
+##### Start services
 ```
 sudo docker-compose up -d
 ```
-#### Wait for full startup
+##### **Wait for full startup**
 ```
 sleep 90
 ```
-## Step 4: Verify Setup
-#### Check if nodepool recognizes the node
+### Step 4: Verify Setup
+##### **Check if nodepool recognizes the node**
 ```
 sudo docker exec examples_launcher_1 nodepool list
 ```
@@ -141,7 +144,7 @@ Expected output
 | 0000000019 | static-vms | ubuntu-jammy | node | NODE_IP |  |ready | 20:00:50:35 | unlocked |
 0000000005 | static-vms | external-node | NODE_IP | NODE_IP |  | ready | 00:00:10:00 | unlocked |
 
-### Extra verification
+#### Extra verification
 ```
 sudo docker exec examples_executor_1 ssh -o StrictHostKeyChecking=no minson@NODE_IP "echo SSH test successful"
 ```
@@ -150,9 +153,9 @@ This should return *SSH test successful*
 
 Now the Node setup is ready add your Node in [jobs.yaml](https://github.com/Minson2951/nodes_zuul_config/blob/915c40574b181b2ed8de18d7eaab69ffd827ced2/zuul.d/jobs.yaml) with another name and run your job on that node.
 
-# On Node Machine (Execution Node)
+## On Node Machine (Execution Node)
 
-## Step1: Install SSH Server
+### Step1: Install SSH Server
 Open terminal in files, and perform the below:
 ```
 sudo apt update
@@ -160,8 +163,8 @@ sudo apt update
 ```
 sudo apt install openssh-server
 ```
-## Step 2: Prepare User and SSH Directory
-### Create SSH directory (replace 'minson' with your username)
+### Step 2: Prepare User and SSH Directory
+#### Create SSH directory (replace 'minson' with your username)
 ```
 sudo mkdir -p /home/minson/.ssh
 ```
@@ -169,39 +172,39 @@ sudo mkdir -p /home/minson/.ssh
 sudo chmod 700 /home/minson/.ssh
 ```
 
-### Copy the [cat nodepool.pub](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#cat-nodepoolpub) from Main Machine and paste it here
+#### Copy the [cat nodepool.pub](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#cat-nodepoolpub) from Main Machine and paste it here
 ```
 echo 'PASTE_PUBLIC_KEY_HERE' | sudo tee /home/minson/.ssh/authorized_keys
 ```
 
-### Set proper permissions
+#### Set proper permissions
 ```
 sudo chmod 600 /home/minson/.ssh/authorized_keys
 ```
 ```
 sudo chown -R minson:minson /home/minson/.ssh
 ```
-### Make sure SSH service is running
+#### Make sure SSH service is running
 ```
 sudo systemctl status ssh
 ```
-## IP, Host key and Username
-#### Ip address
+### IP, Host key and Username
+##### **Ip address**
  ```
  hostname -I
 ```
-#### Host key
+##### **Host key**
  ```
  sudo cat /etc/ssh/ssh_host_ed25519_key.pub
 ```
-#### Username
+##### **Username**
 ```
 whoami
 ```
 
-# Note:
+## Note:
 
-## Sudo access issue
+### Sudo access issue
 For Node machines, we need to remove sudo access, for accessing the machines:
 Open terminal in Node machine:
 ```
@@ -213,51 +216,51 @@ username ALL=(ALL) NOPASSWD:ALL
 ```
 replace the username with actual [username](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#username)
 
-## Global protect issue
+### Global protect issue
 Connet the node machine only having proper access given by GP team,
 links that need access from GP team,
-### Docker Hub:
+#### Docker Hub:
 - registry-1.docker.io
 - auth.docker.io
 - production.cloudflare.docker.com
 - cdn.docker.com
-### Quay.io:
+#### Quay.io:
 - quay.io
 - cdn01.quay.io
 - cdn02.quay.io
 - cdn03.quay.io
 
-### GitHub:
+#### GitHub:
 - github.com
 - api.github.com
 - raw.githubusercontent.com
 - codeload.github.com
 
-### Python Package Index (PyPI):
+#### Python Package Index (PyPI):
 - pypi.org
 - pypi.python.org
 - files.pythonhosted.org
-### Gerrit Code Review:
+#### Gerrit Code Review:
 - gerrit.googlesource.com
 - gerrithub.io
-### Zuul-specific Repositories:
+#### Zuul-specific Repositories:
 - opendev.org
 - zuul-ci.org
 - zuul-ci.org/proxies.yaml
 
-### Other Container Registries:
+#### Other Container Registries:
 - gcr.io
 - ghcr.io
 - mcr.microsoft.com
 - index.docker.io
 
-### General CDN and Repository URLs:
+#### General CDN and Repository URLs:
 - cloudfront.net
 - akamaihd.net
 
-### smee
+#### smee
 - https://smee.io/
-### Sonar scanner
+#### Sonar scanner
 - https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
 
 These are the above links we need to request from Global Protect, in future based if you want additional access, add it and request it.
@@ -266,16 +269,16 @@ These are the above links we need to request from Global Protect, in future base
 
 
 
-# Troubleshooting Common Issues
-## If SSH fails:
-### Check if keys match
+## Troubleshooting Common Issues
+### If SSH fails:
+#### Check if keys match
 ```
 cat playbooks/files/nodepool.pub
 ```
 ```
 sudo docker exec examples_executor_1 cat /root/.ssh/id_rsa.pub
 ```
-###  Manual key copy (if volumes aren't working)
+####  Manual key copy (if volumes aren't working)
 ```
 sudo docker cp playbooks/files/nodepool examples_executor_1:/root/.ssh/id_rsa
 ```
@@ -288,78 +291,78 @@ sudo docker exec examples_executor_1 chmod 600 /root/.ssh/id_rsa
 ```
 sudo docker exec examples_executor_1 chmod 644 /root/.ssh/id_rsa.pub
 ```
-### Debug SSH connection
+#### Debug SSH connection
 ```
 sudo docker exec examples_executor_1 ssh -vvv -o StrictHostKeyChecking=no minson@NODE_IP "echo test"
 ```
-### Restart services
+#### Restart services
 ```
 sudo docker-compose restart
 ```
 
-# Common commands
-### Stop any running services
+## Common commands
+#### Stop any running services
 ```
 sudo docker-compose down
 ```
-### Stop all running containers
+#### Stop all running containers
 ```
 sudo docker stop $(sudo docker ps -aq)
 ```
-### Remove all containers
+#### Remove all containers
 ```
 sudo docker rm $(sudo docker ps -aq)
 ```
 
-### Remove all Docker Compose resources
+#### Remove all Docker Compose resources
 ```
 sudo docker-compose -p zuul-tutorial down --rmi all --volumes --remove-orphans
 ```
 
-### Remove All Docker Images
+#### Remove All Docker Images
 ```
 sudo docker rmi $(sudo docker images -q)
 ```
-### Remove all volumes
+#### Remove all volumes
 ```
 sudo docker volume rm $(sudo docker volume ls -q)
 ```
 
 
-### Clean everything
+#### Clean everything
 ```
 sudo docker system prune -af
 ```
 ```
 sudo docker volume prune -f
 ```
-### Restart Docker
+#### Restart Docker
 ```
 sudo systemctl restart docker
 ```
-### Start services
+#### Start services
 ```
 sudo docker-compose up -d
 ```
 
-### Check containers
+#### Check containers
 ```
 sudo docker ps -a
 ```
-### Check images
+#### Check images
 ```
 sudo docker images
 ```
-### Check volumes
+#### Check volumes
 ```
 sudo docker volume ls
 ```
-### Check networks
+#### Check networks
 ```
 sudo docker network ls
 ```
 
-# Important Notes
+## Important Notes
 - Backup any important data before running these commands if you have valuable containers/images
 - The Command ``` sudo docker system prune -a --volumes ``` is very destructive - it removes everything
 - Make sure you're in the correct zuul directory when running docker-compose commands
