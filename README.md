@@ -1,11 +1,11 @@
 # Chapters
 1. [Tutorial: nodes_zuul_config](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#tutorial-nodes_zuul_config)
-2. [Visual Overview]()
-3. [Node setup]()
-4. [Note]()
-5. [Troubleshooting Common Issues]()
-6. [Common commands]()
-7. [Important Notes]()
+2. [Visual Overview](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#visual-overview)
+3. [Node setup](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#node-setup)
+4. [Note](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#note)
+5. [Troubleshooting Common Issues](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#troubleshooting-common-issues)
+6. [Common commands](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#common-commands)
+7. [Important Notes](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#important-notes)
 
 # Tutorial: nodes_zuul_config
 
