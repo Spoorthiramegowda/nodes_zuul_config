@@ -246,4 +246,16 @@ sudo docker volume prune -f
 ### Start services
 ```
 sudo docker-compose up -d
-``
+```
+
+# Note:
+For Node machines, we need to remove sudo access, for accessing the machines:
+Open terminal in Node machine:
+```
+sudo visudo
+```
+at the end of the line add this below line
+```
+username ALL=(ALL) NOPASSWD:ALL
+```
+replace the username with actual username 
