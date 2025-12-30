@@ -363,6 +363,5 @@ sudo docker network ls
 - Backup any important data before running these commands if you have valuable containers/images
 - The Command ``` sudo docker system prune -a --volumes ``` is very destructive - it removes everything
 - Make sure you're in the correct zuul directory when running docker-compose commands
-- 
 
 
