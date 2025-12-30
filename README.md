@@ -205,7 +205,7 @@ Open terminal in Node machine:
 ```
 sudo visudo
 ```
-at the end of add this below line
+at the end, add this below line
 ```
 username ALL=(ALL) NOPASSWD:ALL
 ```
