@@ -258,4 +258,4 @@ at the end of add this below line
 ```
 username ALL=(ALL) NOPASSWD:ALL
 ```
-replace the username with actual [username](whoami) 
+replace the username with actual [username](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#username) 
