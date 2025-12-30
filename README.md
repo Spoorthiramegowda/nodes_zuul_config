@@ -372,5 +372,7 @@ sudo docker network ls
 - Backup any important data before running these commands if you have valuable containers/images
 - The Command ``` sudo docker system prune -a --volumes ``` is very destructive - it removes everything
 - Make sure you're in the correct zuul directory when running docker-compose commands
+- if you facing unknown issue, delete/remove all the containers, images, volumes and restart the docker.
+- Multiple users in one machine cant up the docker simultaneously, other users should down the docker if the already Up in their machines. Only one should Up the docker at a time
 
 
