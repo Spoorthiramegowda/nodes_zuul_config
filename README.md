@@ -254,8 +254,8 @@ Open terminal in Node machine:
 ```
 sudo visudo
 ```
-at the end of the line add this below line
+at the end of add this below line
 ```
 username ALL=(ALL) NOPASSWD:ALL
 ```
-replace the username with actual username 
+replace the username with actual [username](whoami) 
