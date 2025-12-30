@@ -198,9 +198,14 @@ sudo systemctl status ssh
 ```
 whoami
 ```
+<details>
+<summary>Cool Dropdown</summary>
+blah blah blah blah you found me!
+</details>
 
 # Note:
-## Sudo access issue
+<details>
+<summary>## Sudo access issue</summary>
 For Node machines, we need to remove sudo access, for accessing the machines:
 Open terminal in Node machine:
 ```
@@ -210,7 +215,8 @@ at the end, add this below line
 ```
 username ALL=(ALL) NOPASSWD:ALL
 ```
-replace the username with actual [username](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#username) 
+replace the username with actual [username](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#username)
+</details>
 ## Global protect issue
 Connet the node machine only having proper access given by GP team,
 links that need access from GP team,
