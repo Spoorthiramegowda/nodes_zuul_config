@@ -216,6 +216,15 @@ Connet the node machine only having proper access given by GP team,
 links that need access from GP team,
 ### Docker Hub:
 - registry-1.docker.io
+- auth.docker.io
+- production.cloudflare.docker.com
+- cdn.docker.com
+### Quay.io:
+- quay.io
+o	cdn01.quay.io
+o	cdn02.quay.io
+o	cdn03.quay.io
+
 
 
 
