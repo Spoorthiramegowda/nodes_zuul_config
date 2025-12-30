@@ -198,10 +198,6 @@ sudo systemctl status ssh
 ```
 whoami
 ```
-<details>
-<summary>Cool Dropdown</summary>
-blah blah blah blah you found me!
-</details>
 
 # Note:
 
