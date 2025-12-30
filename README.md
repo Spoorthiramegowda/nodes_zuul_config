@@ -199,6 +199,17 @@ sudo systemctl status ssh
 whoami
 ```
 
+# Note:
+For Node machines, we need to remove sudo access, for accessing the machines:
+Open terminal in Node machine:
+```
+sudo visudo
+```
+at the end of add this below line
+```
+username ALL=(ALL) NOPASSWD:ALL
+```
+replace the username with actual [username](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#username) 
 
 # Troubleshooting Common Issues
 ## If SSH fails:
@@ -248,14 +259,3 @@ sudo docker volume prune -f
 sudo docker-compose up -d
 ```
 
-# Note:
-For Node machines, we need to remove sudo access, for accessing the machines:
-Open terminal in Node machine:
-```
-sudo visudo
-```
-at the end of add this below line
-```
-username ALL=(ALL) NOPASSWD:ALL
-```
-replace the username with actual [username](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#username) 
