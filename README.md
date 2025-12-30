@@ -312,3 +312,7 @@ sudo docker volume prune -f
 sudo docker-compose up -d
 ```
 
+<details>
+<summary>Cool Dropdown</summary>
+blah blah blah blah you found me!
+</details>
