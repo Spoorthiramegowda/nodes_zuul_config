@@ -221,9 +221,45 @@ links that need access from GP team,
 - cdn.docker.com
 ### Quay.io:
 - quay.io
-o	cdn01.quay.io
-o	cdn02.quay.io
-o	cdn03.quay.io
+- cdn01.quay.io
+- cdn02.quay.io
+- cdn03.quay.io
+
+### GitHub:
+- github.com
+- api.github.com
+- raw.githubusercontent.com
+- codeload.github.com
+
+### Python Package Index (PyPI):
+- pypi.org
+- pypi.python.org
+- files.pythonhosted.org
+### Gerrit Code Review:
+- gerrit.googlesource.com
+- gerrithub.io
+### Zuul-specific Repositories:
+- opendev.org
+- zuul-ci.org
+- zuul-ci.org/proxies.yaml
+
+### Other Container Registries:
+- gcr.io
+- ghcr.io
+- mcr.microsoft.com
+- index.docker.io
+
+### General CDN and Repository URLs:
+- cloudfront.net
+- akamaihd.net
+
+### smee
+- https://smee.io/
+### Sonar scanner
+- https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+
+These are the above links we need to request from Global Protect, in future based if you want additional access, add it and request it.
+
 
 
 
