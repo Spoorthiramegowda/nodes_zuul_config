@@ -1,5 +1,11 @@
 # Chapters
-1. [Node setup](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#node-setup)
+1. [Tutorial: nodes_zuul_config](https://github.com/Minson2951/nodes_zuul_config/blob/main/README.md#tutorial-nodes_zuul_config)
+2. [Visual Overview]()
+3. [Node setup]()
+4. [Note]()
+5. [Troubleshooting Common Issues]()
+6. [Common commands]()
+7. [Important Notes]()
 
 # Tutorial: nodes_zuul_config
 
@@ -202,7 +208,7 @@ sudo systemctl status ssh
 whoami
 ```
 
-## Note:
+# Note:
 
 ### Sudo access issue
 For Node machines, we need to remove sudo access, for accessing the machines:
@@ -269,7 +275,7 @@ These are the above links we need to request from Global Protect, in future base
 
 
 
-## Troubleshooting Common Issues
+# Troubleshooting Common Issues
 ### If SSH fails:
 #### Check if keys match
 ```
@@ -300,7 +306,7 @@ sudo docker exec examples_executor_1 ssh -vvv -o StrictHostKeyChecking=no minson
 sudo docker-compose restart
 ```
 
-## Common commands
+# Common commands
 #### Stop any running services
 ```
 sudo docker-compose down
@@ -362,7 +368,7 @@ sudo docker volume ls
 sudo docker network ls
 ```
 
-## Important Notes
+# Important Notes
 - Backup any important data before running these commands if you have valuable containers/images
 - The Command ``` sudo docker system prune -a --volumes ``` is very destructive - it removes everything
 - Make sure you're in the correct zuul directory when running docker-compose commands
