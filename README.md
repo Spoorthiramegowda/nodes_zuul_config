@@ -214,6 +214,8 @@ replace the username with actual [username](https://github.com/Minson2951/nodes_
 ## Global protect issue
 Connet the node machine only having proper access given by GP team,
 links that need access from GP team,
+### Docker Hub:
+- registry-1.docker.io
 
 
 
