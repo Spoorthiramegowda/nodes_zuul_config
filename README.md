@@ -302,6 +302,30 @@ sudo docker-compose restart
 ```
 sudo docker-compose down
 ```
+### Stop all running containers
+```
+sudo docker stop $(sudo docker ps -aq)
+```
+### Remove all containers
+```
+sudo docker rm $(sudo docker ps -aq)
+```
+
+### Remove all Docker Compose resources
+```
+sudo docker-compose -p zuul-tutorial down --rmi all --volumes --remove-orphans
+```
+
+### Remove All Docker Images
+```
+sudo docker rmi $(sudo docker images -q)
+```
+### Remove all volumes
+```
+sudo docker volume rm $(sudo docker volume ls -q)
+```
+
+
 ### Clean everything
 ```
 sudo docker system prune -af
@@ -309,12 +333,36 @@ sudo docker system prune -af
 ```
 sudo docker volume prune -f
 ```
+### Restart Docker
+```
+sudo systemctl restart docker
+```
 ### Start services
 ```
 sudo docker-compose up -d
 ```
 
-<details>
-<summary>Cool Dropdown</summary>
-blah blah blah blah you found me!
-</details>
+### Check containers
+```
+sudo docker ps -a
+```
+### Check images
+```
+sudo docker images
+```
+### Check volumes
+```
+sudo docker volume ls
+```
+### Check networks
+```
+sudo docker network ls
+```
+
+# Important Notes
+- Backup any important data before running these commands if you have valuable containers/images
+- The Command ``` sudo docker system prune -a --volumes ``` is very destructive - it removes everything
+- Make sure you're in the correct zuul directory when running docker-compose commands
+- 
+
+
