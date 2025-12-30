@@ -151,7 +151,16 @@ This should return *SSH test successful*
 Now the Node setup is ready add your Node in [jobs.yaml](https://github.com/Minson2951/nodes_zuul_config/blob/915c40574b181b2ed8de18d7eaab69ffd827ced2/zuul.d/jobs.yaml) with another name and run your job on that node.
 
 # On Node Machine (Execution Node)
-## Step 1: Prepare User and SSH Directory
+
+## Step1: Install SSH Server
+Open terminal in files, and perform the below:
+```
+sudo apt update
+```
+```
+sudo apt install openssh-server
+```
+## Step 2: Prepare User and SSH Directory
 ### Create SSH directory (replace 'minson' with your username)
 ```
 sudo mkdir -p /home/minson/.ssh
