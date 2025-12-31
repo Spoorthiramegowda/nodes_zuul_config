@@ -23,3 +23,9 @@
     nodes:
       - name: 172.17.225.98
         label: external-node
+
+- nodeset:
+    name: external-nodeset-1
+    nodes:
+      - name: 192.168.32.194
+        label: external-node-1
