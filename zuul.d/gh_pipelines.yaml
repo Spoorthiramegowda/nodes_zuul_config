@@ -6,7 +6,7 @@
       initial check status.
     manager: independent
     trigger:
-      zuultesting1:
+      zuultesting2:
         - event: pull_request
           action:
             - opened
@@ -19,19 +19,19 @@
           action: rerequested
           check: .*/check:.*
     start:
-      zuultesting1:
+      zuultesting2:
         check: 'in_progress'
         comment: false
     success:
-      zuultesting1:
+      zuultesting2:
         check: 'success'
         comment: false
     failure:
-      zuultesting1:
+      zuultesting2:
         check: 'failure'
         comment: false
     dequeue:
-      zuultesting1:
+      zuultesting2:
         check: cancelled
         comment: false
 
@@ -45,7 +45,7 @@
     precedence: high
     supercedes: gh_check
     require:
-      zuultesting1:
+      zuultesting2:
         review:
           - permission: write
             type: approved
@@ -53,7 +53,7 @@
         open: true
         current-patchset: true
     trigger:
-      zuultesting1:
+      zuultesting2:
         - event: pull_request_review
           action: submitted
           state:
@@ -76,20 +76,20 @@
           label:
             - gate
     start:
-      zuultesting1:
+      zuultesting2:
         check: 'in_progress'
         comment: false
     success:
-      zuultesting1:
+      zuultesting2:
         check: 'success'
         comment: false
         merge: true
     failure:
-      zuultesting1:
+      zuultesting2:
         check: 'failure'
         comment: false
     dequeue:
-      zuultesting1:
+      zuultesting2:
         check: cancelled
         comment: false
     window-floor: 20
@@ -103,7 +103,7 @@
     manager: independent
     precedence: low
     trigger:
-      zuultesting1:
+      zuultesting2:
         - event: push
           ref: ^refs/heads/.*$
 
@@ -114,7 +114,7 @@
     precedence: high
     post-review: true
     trigger:
-      zuultesting1:
+      zuultesting2:
         - event: push
           ref: ^refs/tags/.*$
 
@@ -126,15 +126,15 @@
       timer:
         - time: "0 0 * * 1-5" # 12:00 AM Monday to Friday (no weekends)
     start:
-      zuultesting1:
+      zuultesting2:
         check: 'in_progress'
         comment: false
     success:
-      zuultesting1:
+      zuultesting2:
         check: 'success'
         comment: false
     failure:
-      zuultesting1:
+      zuultesting2:
         check: 'failure'
         comment: false
 
@@ -146,15 +146,15 @@
       timer:
         - time: "0 7 * * 6"  # 7:00 AM every Saturday
     start:
-      zuultesting1:
+      zuultesting2:
         check: 'in_progress'
         comment: false
     success:
-      zuultesting1:
+      zuultesting2:
         check: 'success'
         comment: false
     failure:
-      zuultesting1:
+      zuultesting2:
         check: 'failure'
         comment: false
 
@@ -166,14 +166,14 @@
       timer:
         - time: "0 6,9,12,15,18,21 * * 1-5"  # Every 3 hours from 6AM to 9PM, Mon-Fri
     start:
-      zuultesting1:
+      zuultesting2:
         check: 'in_progress'
         comment: false
     success:
-      zuultesting1:
+      zuultesting2:
         check: 'success'
         comment: false
     failure:
-      zuultesting1:
+      zuultesting2:
         check: 'failure'
         comment: false
