@@ -22,7 +22,7 @@
     default-branch: master
 
 - project:
-    name: stepin104842/nodes_zuul_config
+    name: Spoorthiramegowda/nodes_zuul_config
     default-branch: main
     gh_check:
       jobs:
