@@ -1,9 +1,7 @@
 ---
 - pipeline:
     name: gh_check
-    description: |
-      Newly uploaded patchsets enter this pipeline to receive an
-      initial check status.
+    description: Newly uploaded patchsets enter this pipeline to receive an initial check status.
     manager: independent
     trigger:
       zuultesting2:
@@ -37,10 +35,7 @@
 
 - pipeline:
     name: gh_gate
-    description: |
-      Changes that have been approved by core developers are enqueued
-      in order in this pipeline, and if they pass tests, will be
-      merged.
+    description: Changes that have been approved by core developers are enqueued in order in this pipeline, and if they pass tests, will be merged.
     manager: dependent
     precedence: high
     supercedes: gh_check
@@ -98,8 +93,7 @@
 - pipeline:
     name: gh_post
     post-review: true
-    description:
-      This pipeline runs jobs that operate after each change is merged.
+    description: This pipeline runs jobs that operate after each change is merged.
     manager: independent
     precedence: low
     trigger:
@@ -120,7 +114,7 @@
 
 - pipeline:
     name: nightly
-    description: "Nightly run at 12 AM"
+    description: Nightly run at 12 AM
     manager: independent
     trigger:
       timer:
@@ -140,7 +134,7 @@
 
 - pipeline:
     name: weekly
-    description: "Weekly comprehensive tests run every saturday at 7 AM"
+    description: Weekly comprehensive tests run every saturday at 7 AM
     manager: independent
     trigger:
       timer:
@@ -160,7 +154,7 @@
 
 - pipeline:
     name: periodic_3h_weekdays
-    description: "Runs every 3 hours from 6:00 AM to 09:00 PM, Monday to Friday"
+    description: Runs every 3 hours from 6:00 AM to 09:00 PM, Monday to Friday
     manager: independent
     trigger:
       timer:
