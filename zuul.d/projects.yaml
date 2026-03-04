@@ -2,19 +2,31 @@
 - project:
     name: ^.*$
     default-branch: main
-    gh_check:
+    check:
       jobs: []
-    gh_gate:
+    gate:
       jobs: []
-    gh_post:
+    post:
       jobs: []
-    gh_tag:
+    tag:
+      jobs: []
+    pre-release:
+      jobs: []
+    release:
+      jobs: []
+    daily:
       jobs: []
     nightly:
+      jobs: []
+    hourly:
       jobs: []
     weekly:
       jobs: []
     periodic_3h_weekdays:
+      jobs: []
+    6-hourly:
+      jobs: []
+    ondemand:
       jobs: []
 
 - project:
@@ -24,24 +36,42 @@
 - project:
     name: Spoorthiramegowda/nodes_zuul_config
     default-branch: main
-    gh_check:
+    check:
       jobs:
         - noop
-    gh_gate:
+    gate:
       jobs:
         - noop
-    gh_post:
+    post:
       jobs:
         - noop
-    gh_tag:
+    tag:
+      jobs:
+        - noop
+    pre-release:
+      jobs:
+        - noop
+    release:
+      jobs:
+        - noop
+    daily:
       jobs:
         - noop
     nightly:
+      jobs:
+        - noop
+    hourly:
       jobs:
         - noop
     weekly:
       jobs:
         - noop
     periodic_3h_weekdays:
+      jobs:
+        - noop
+    6-hourly:
+      jobs:
+        - noop
+    ondemand:
       jobs:
         - noop
