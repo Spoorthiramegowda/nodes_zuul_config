@@ -38,7 +38,7 @@
     description: Changes that have been approved by core developers are enqueued in order in this pipeline, and if they pass tests, will be merged.
     manager: dependent
     precedence: high
-    supercedes: gh_check
+    supercedes: check
     require:
       zuultesting2:
         review:
