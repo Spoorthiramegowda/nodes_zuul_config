@@ -17,6 +17,8 @@
     nodes:
       - name: ubuntu-jammy
         label: ubuntu-jammy
+      - name: 192.168.32.194
+        label: external-node-1
 
 - nodeset:
     name: external-nodeset-1
